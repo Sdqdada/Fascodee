@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&amp;family=Manrope:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .backdrop-blur-md {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        /* Navigation Drawer Animation */
+        #nav-drawer {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #nav-drawer.closed {
+            transform: translateX(-100%);
+        }
+        #nav-overlay.closed {
+            opacity: 0;
+            pointer-events: none;
+        }
+        #nav-overlay {
+            transition: opacity 0.4s ease;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#2f3130",
+                    "secondary-fixed-dim": "#e9c176",
+                    "tertiary": "#000000",
+                    "error-container": "#ffdad6",
+                    "outline": "#75777d",
+                    "inverse-primary": "#bcc7dd",
+                    "tertiary-container": "#171c20",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed": "#ffdea5",
+                    "primary": "#000000",
+                    "surface-bright": "#faf9f7",
+                    "on-surface": "#1a1c1b",
+                    "primary-fixed": "#d8e3f9",
+                    "surface-tint": "#545f72",
+                    "tertiary-fixed-dim": "#c2c7cd",
+                    "on-secondary-fixed": "#261900",
+                    "secondary-container": "#fed488",
+                    "on-secondary-container": "#785a1a",
+                    "on-tertiary-fixed": "#171c20",
+                    "tertiary-fixed": "#dfe3e9",
+                    "primary-container": "#111c2c",
+                    "on-primary": "#ffffff",
+                    "surface-container": "#efeeec",
+                    "secondary": "#775a19",
+                    "outline-variant": "#c5c6cd",
+                    "primary-fixed-dim": "#bcc7dd",
+                    "on-tertiary-container": "#7f848a",
+                    "surface": "#faf9f7",
+                    "surface-container-high": "#e9e8e6",
+                    "surface-dim": "#dadad8",
+                    "surface-container-highest": "#e3e2e0",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed-variant": "#3d4759",
+                    "on-secondary-fixed-variant": "#5d4201",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#44474c",
+                    "surface-container-low": "#f4f3f1",
+                    "surface-variant": "#e3e2e0",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "background": "#faf9f7",
+                    "on-background": "#1a1c1b",
+                    "on-primary-container": "#798498",
+                    "on-primary-fixed": "#111c2c",
+                    "inverse-on-surface": "#f1f1ef",
+                    "on-tertiary-fixed-variant": "#42474c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "margin-desktop": "64px",
+                    "section-gap": "120px",
+                    "base": "8px",
+                    "gutter": "24px",
+                    "margin-mobile": "20px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "headline-md": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"],
+                    "label-md": ["Manrope"],
+                    "body-md": ["Manrope"],
+                    "body-lg": ["Manrope"],
+                    "display-lg": ["Playfair Display"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "headline-md": ["28px", {"lineHeight": "36px", "fontWeight": "500"}],
+                    "headline-lg": ["40px", {"lineHeight": "48px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- Navigation Drawer / Hamburger Menu -->
+<div class="fixed inset-0 z-[100] closed" id="nav-overlay" onclick="toggleMenu()">
+<div class="absolute inset-0 bg-primary/40 backdrop-blur-sm"></div>
+</div>
+<aside class="fixed top-0 left-0 h-full w-[85vw] max-w-sm bg-surface z-[101] shadow-2xl closed overflow-y-auto" id="nav-drawer">
+<div class="p-margin-mobile border-b border-outline-variant flex justify-between items-center bg-surface-container">
+<a class="font-headline-md text-headline-md tracking-[0.2em] text-primary uppercase" href="#">AJILE</a>
+<button class="material-symbols-outlined text-primary p-2 active:scale-95" onclick="toggleMenu()">close</button>
+</div>
+<nav class="flex flex-col py-6">
+<a class="px-margin-mobile py-4 font-label-md text-label-md text-primary uppercase tracking-widest border-b border-outline-variant/30 hover:bg-surface-container transition-colors" href="#">Home</a>
+<a class="px-margin-mobile py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-widest border-b border-outline-variant/30 hover:bg-surface-container transition-colors" href="#">About Us</a>
+<a class="px-margin-mobile py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-widest border-b border-outline-variant/30 hover:bg-surface-container transition-colors" href="#">Collections</a>
+<a class="px-margin-mobile py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-widest border-b border-outline-variant/30 hover:bg-surface-container transition-colors" href="#">Showroom</a>
+<a class="px-margin-mobile py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-widest border-b border-outline-variant/30 hover:bg-surface-container transition-colors" href="#">Lighting</a>
+<a class="px-margin-mobile py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-widest border-b border-outline-variant/30 hover:bg-surface-container transition-colors" href="#">Door Hardware</a>
+<a class="px-margin-mobile py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-widest border-b border-outline-variant/30 hover:bg-surface-container transition-colors" href="#">Wardrobe Fittings</a>
+<a class="px-margin-mobile py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-widest border-b border-outline-variant/30 hover:bg-surface-container transition-colors" href="#">Sanitary &amp; Bathrooms</a>
+<a class="px-margin-mobile py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-widest border-b border-outline-variant/30 hover:bg-surface-container transition-colors" href="#">Kitchen</a>
+<a class="px-margin-mobile py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-widest border-b border-outline-variant/30 hover:bg-surface-container transition-colors" href="#">Flooring</a>
+<a class="px-margin-mobile py-4 font-label-md text-label-md text-secondary uppercase tracking-widest hover:bg-surface-container transition-colors" href="#">Contact Us</a>
+</nav>
+<div class="mt-auto p-margin-mobile border-t border-outline-variant bg-surface-container-low">
+<p class="font-label-md text-[10px] text-on-surface-variant uppercase tracking-tighter mb-4">Abeokuta, Ogun State</p>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-secondary">public</span>
+<span class="material-symbols-outlined text-secondary">mail</span>
+</div>
+</div>
+</aside>
+<!-- TopAppBar -->
+<header class="bg-surface/90 backdrop-blur-md border-b border-outline-variant fixed top-0 w-full z-50 flex items-center justify-between px-margin-mobile md:px-margin-desktop h-16 w-full">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform duration-200" onclick="toggleMenu()">menu</button>
+<a class="font-headline-md text-headline-md tracking-[0.2em] text-primary uppercase" href="#">AJILE</a>
+</div>
+<div class="hidden md:flex gap-8">
+<a class="font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors duration-300 px-2 py-1" href="#">Home</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors duration-300 px-2 py-1" href="#">About Us</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors duration-300 px-2 py-1" href="#">Collections</a>
+</div>
+<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform duration-200">search</span>
+</header>
+<main class="pt-16">
+<!-- Hero Section -->
+<section class="relative h-[707px] flex items-center justify-start overflow-hidden px-margin-mobile md:px-margin-desktop">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="A high-end luxury interior featuring polished architectural metal and premium wood finishes. The room is flooded with natural morning light through floor-to-ceiling windows, highlighting the meticulous textures of a marble floor. The atmosphere is serene, professional, and sophisticated, reflecting the meticulous curation of AJILE finishes. The color palette centers on alabaster, midnight navy, and soft gold accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJYHLPe8ePmteFBvh_hSUeKt9clWaLnuFlE2g0UJWObvVvjCB7mJbPvTPlNmL35wMzr0jpsOTDCGoI7DtszQZF7nL2gxPB7r7OJajYdaGHqwwsH76iQzTxt4H_CCmGenxH9HST6yf1UeOhtAtg3n7FPsNoOVdNiQCf1uBHhkYE-sFKVBJRTIKWNl4kVB8YLbLrMldD7F7ok8n-Hpki6dZpQusWNDVUOS2lqFzL4lfqIC4mO7guQnWDoyPKgPNOfvVaxCf8n8y8BYPs"/>
+<div class="absolute inset-0 bg-primary/20"></div>
+</div>
+<div class="relative z-10 max-w-2xl">
+<h1 class="font-display-lg text-[48px] md:text-display-lg text-on-primary mb-6">Elevating the Architectural Fabric of Abeokuta</h1>
+<p class="font-body-lg text-body-lg text-on-primary/90 max-w-lg mb-8">AJILE Premium Finishes bridges the gap between visionary design and tangible reality, providing curated materials for the region's most ambitious projects.</p>
+<div class="flex gap-4">
+<button class="bg-primary text-on-primary px-8 py-4 font-label-md text-label-md uppercase tracking-wider hover:bg-primary-container transition-colors">Our Vision</button>
+</div>
+</div>
+</section>
+<!-- The Story Section -->
+<section class="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div class="md:col-span-5 flex flex-col justify-center">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-[0.3em] mb-4">The Foundation</span>
+<h2 class="font-headline-lg text-headline-lg mb-8">A Response to Quality</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 leading-relaxed">For years, the burgeoning architectural landscape of Abeokuta faced a persistent challenge: the scarcity of high-caliber finishing materials. Designers and builders were often forced to compromise on their vision due to unreliable supply chains and inconsistent quality.</p>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 leading-relaxed">AJILE was founded as a meticulous response to this market void. We recognized that luxury isn't just about price; it's about the permanence of quality and the reliability of the source.</p>
+</div>
+<div class="md:col-span-7">
+<div class="relative aspect-[4/3] bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" data-alt="A meticulously organized interior design studio with material samples including exotic stones, premium wood swatches, and architectural metals. Large windows reveal a bright, high-key lighting environment that emphasizes the tactile quality of the materials. The space is clean and minimalist, utilizing a palette of whites, grays, and gold highlights to convey trust and professional expertise." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQ5N2qh5F1_sdAcBALmVgo5x0gixUi2Zs9V04D98nm2mjlhOicZIqGvqiwkfwG4PiyBgL55u7tb5LlEkdNjZlHcWClbKItNsOuDzRt8FYdB4oT_99QtE4nFVrSnKp2rezFvCeCQiwR1V40eOM7kb-Rf7dAP30rKrcVJTm907Ob1FBD65fXculyZcerFDSQtHU614Tr5zGKFMDdIG55iCg2hRVN0xUQpsjkMdgiZOUttKRrkeyoUm7VpbGWHbyLntvWZlZyAbuZOnOe"/>
+<div class="absolute bottom-0 left-0 bg-primary p-8 md:p-12 -translate-x-12 translate-y-12 hidden md:block">
+<span class="text-on-primary font-display-lg text-display-lg">01</span>
+<p class="text-secondary-fixed-dim font-label-md text-label-md uppercase tracking-widest mt-2">The Market Leader</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Competitive Advantage - Bento Grid Style -->
+<section class="py-section-gap bg-surface-container-low">
+<div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="text-center mb-16">
+<h2 class="font-headline-lg text-headline-lg mb-4">Our Competitive Edge</h2>
+<div class="w-24 h-1 bg-secondary mx-auto"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Feature 1 -->
+<div class="bg-surface p-10 border border-outline-variant flex flex-col gap-6 hover:border-secondary transition-colors group">
+<span class="material-symbols-outlined text-[48px] text-secondary">diamond</span>
+<h3 class="font-headline-md text-headline-md">Curated Selection</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">We don't just supply; we curate. Every stone, wood, and metal in our showroom has been hand-selected for its aesthetic integrity and structural longevity.</p>
+</div>
+<!-- Feature 2 -->
+<div class="bg-primary p-10 flex flex-col gap-6">
+<span class="material-symbols-outlined text-[48px] text-secondary-fixed-dim">shop</span>
+<h3 class="font-headline-md text-headline-md text-on-primary">Direct Import</h3>
+<p class="font-body-md text-body-md text-on-primary-fixed-variant">By managing our own global supply chain and direct imports, we eliminate the middleman, ensuring both competitive pricing and absolute provenance of our materials.</p>
+</div>
+<!-- Feature 3 -->
+<div class="bg-surface p-10 border border-outline-variant flex flex-col gap-6 hover:border-secondary transition-colors group">
+<span class="material-symbols-outlined text-[48px] text-secondary">verified</span>
+<h3 class="font-headline-md text-headline-md">Reliable Quality</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Our quality control process is rigorous. From the quarry to your project site, we guarantee that every piece meets the AJILE standard of excellence.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Image Trio - Asymmetric Layout -->
+<section class="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto overflow-hidden">
+<div class="flex flex-col md:flex-row gap-gutter items-stretch">
+<div class="md:w-1/3 aspect-[3/4] overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up of hand-polished premium wood texture with rich dark grains, reflecting soft studio lighting. The image emphasizes the tactile, luxury quality of the finish. The mood is deep and atmospheric, utilizing the brand's primary black and gold tones to showcase meticulous craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhVynr77WQtzYBvC3GBk_ivuoerE5c9B7ydW1Ec7oui81BdbB3aaqbdTp4xFDU8Xm0jGbT4s7i141wtsJJPZNkF5_zAxxvAPUUCR0-TsCtoUmEo9jo5CpWQgSj_2f9DAqoR_0hMJSTa0vpDsnrB0egcirumDsoxLtKMevyylu8O0Fnl-8emDX2fLTWCtEu5u_SFJQaexrprLOXf7XT2h9Vh_BNxFX-EEbJL89N_BTYoNUvYksISupP-yh_1H3FZqIyGk0_m5MR4Mw8"/>
+</div>
+<div class="md:w-1/2 aspect-video overflow-hidden self-center relative">
+<img class="w-full h-full object-cover" data-alt="A modern living space featuring an accent wall made of AJILE's architectural metal finishes. The lighting is focused and warm, creating high-contrast shadows that define the geometric patterns of the material. The aesthetic is modern editorial, leaning into high-end interior design photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLZLqSYdpHTKi6eWKoJkCJ42wMc5-CxB52xsDYaiSxYyHyLDItgumDA6u0asajXpm_0oxCa8tQCb6ff2Caa_VoGZrVTckoQwuUTZAtghzbVunYZu7O-9esZgzZbqEIH8xuaK9E4aXovytHUnlEsuXQdIzrOSKyTmFy8E14qnuL5EJuaagfSfMZ3ZE0PcJx3tzbSy3Ng3J9zgQeWbWqTCQoDf29L_-EpMrjMfMqp50JtNr5yKpQHeT7wK-xvcFwqZkU13Zcuf46r0F4"/>
+<div class="absolute inset-0 border-[24px] border-surface"></div>
+</div>
+<div class="md:w-1/4 aspect-[2/3] overflow-hidden self-end">
+<img class="w-full h-full object-cover" data-alt="A wide-angle view of a prestigious gallery-style showroom in Abeokuta. The floor is covered in high-gloss exotic stone tiles, reflecting the minimalist ceiling lighting. The space feels open, airy, and expensive, communicating the brand's position as a premium provider for local luxury projects." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5rjOx000GaAQ8FO1BQR8VSUOT5YBIYwBOwWf3NC1swlZQz9KPBZ2TLw7QfZAGAq5IMciqiP-xzhJXuuIK11kDQrE9dxFSlOkji4RRCJCRxWlJ-Y6llK70gfMI9FYv2SHNYTl6HJ_tKjH-krTu4NmSm2V3fUPGFkik0nVmJfjrEwFUTqQWrHT4GObJ-06ZRH-0DJ-b47C-2HmJe21UsPAZAKSTO0aLnWq5pCItUBf7GBbCMiysnUzrei08Xlm3TZkfQqM0BKBs2oma"/>
+</div>
+</div>
+</section>
+<!-- Values Section -->
+<section class="py-section-gap bg-surface text-center px-margin-mobile md:px-margin-desktop border-t border-outline-variant">
+<div class="max-w-3xl mx-auto">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-[0.4em] block mb-6">Our Commitment</span>
+<h2 class="font-display-lg text-display-lg mb-10 italic">"Quality is not an act, it is a habit."</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant italic mb-12">We are dedicated to supporting the architects and dreamers of Ogun State, ensuring that the finishes on their buildings are as lasting as the legacies they create.</p>
+<div class="flex flex-wrap justify-center gap-12">
+<div class="flex flex-col items-center">
+<span class="font-headline-lg text-headline-lg text-primary">150+</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mt-2">Projects Completed</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-headline-lg text-headline-lg text-primary">12+</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mt-2">Material Origins</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-headline-lg text-headline-lg text-primary">0</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mt-2">Quality Compromises</span>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="relative py-section-gap px-margin-mobile md:px-margin-desktop overflow-hidden bg-primary">
+<div class="max-w-container-max mx-auto flex flex-col md:flex-row items-center justify-between gap-12 relative z-10">
+<div class="text-left">
+<h2 class="font-headline-lg text-headline-lg text-on-primary mb-4">Ready to refine your vision?</h2>
+<p class="font-body-md text-body-md text-on-primary/70">Visit our showroom for a private consultation with our finish specialists.</p>
+</div>
+<button class="border border-secondary text-secondary-fixed-dim px-12 py-5 font-label-md text-label-md uppercase tracking-widest hover:bg-secondary/10 transition-colors">Book a Consultation</button>
+</div>
+<!-- Decorative Subtle Pattern -->
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#775a19 1px, transparent 1px); background-size: 40px 40px;"></div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container w-full py-section-gap px-margin-mobile border-t border-outline-variant mt-section-gap">
+<div class="flex flex-col items-start gap-gutter max-w-container-max mx-auto text-left">
+<div class="w-full flex flex-col md:flex-row justify-between items-start gap-12">
+<div>
+<a class="font-headline-md text-headline-md text-primary mb-4 uppercase tracking-[0.2em] block" href="#">AJILE</a>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm">Premium finishes curated for the architectural elite. Defining the standards of luxury living in West Africa.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-12">
+<div class="flex flex-col gap-4">
+<span class="font-label-md text-label-md text-primary uppercase">Contact</span>
+<span class="font-body-md text-body-md text-on-surface-variant hover:text-secondary cursor-pointer">WhatsApp</span>
+<span class="font-body-md text-body-md text-on-surface-variant hover:text-secondary cursor-pointer">Instagram</span>
+</div>
+<div class="flex flex-col gap-4">
+<span class="font-label-md text-label-md text-primary uppercase">Legal</span>
+<span class="font-body-md text-body-md text-on-surface-variant hover:text-secondary cursor-pointer">Showroom Policy</span>
+<span class="font-body-md text-body-md text-on-surface-variant hover:text-secondary cursor-pointer">Sustainability</span>
+</div>
+</div>
+</div>
+<div class="w-full border-t border-outline-variant pt-8 mt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="font-body-md text-body-md text-on-surface-variant">© 2024 AJILE PREMIUM FINISHES. ALL RIGHTS RESERVED.</p>
+<div class="flex gap-6">
+<span class="material-symbols-outlined text-secondary hover:opacity-80 transition-opacity cursor-pointer">public</span>
+<span class="material-symbols-outlined text-secondary hover:opacity-80 transition-opacity cursor-pointer">mail</span>
+</div>
+</div>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile only) -->
+<nav class="md:hidden bg-surface border-t border-outline-variant fixed bottom-0 w-full z-50 flex justify-around items-center h-16 px-4 pb-safe">
+<a class="text-on-surface-variant flex flex-col items-center gap-1 hover:text-primary transition-colors active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">home_app_logo</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+<a class="text-on-surface-variant flex flex-col items-center gap-1 hover:text-primary transition-colors active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">info</span>
+<span class="font-label-md text-label-md">About</span>
+</a>
+<a class="text-on-surface-variant flex flex-col items-center gap-1 hover:text-primary transition-colors active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">auto_awesome_motion</span>
+<span class="font-label-md text-label-md">Collections</span>
+</a>
+<a class="text-on-surface-variant flex flex-col items-center gap-1 hover:text-primary transition-colors active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="font-label-md text-label-md">Contact</span>
+</a>
+</nav>
+<script>
+    function toggleMenu() {
+        const drawer = document.getElementById('nav-drawer');
+        const overlay = document.getElementById('nav-overlay');
+        drawer.classList.toggle('closed');
+        overlay.classList.toggle('closed');
+        
+        // Prevent scrolling when menu is open
+        if (!drawer.classList.contains('closed')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    }
+</script>
+</body></html>

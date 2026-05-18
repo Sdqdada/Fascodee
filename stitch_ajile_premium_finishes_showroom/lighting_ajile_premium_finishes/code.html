@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#000000",
+                    "on-surface": "#1a1c1b",
+                    "on-secondary-container": "#785a1a",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-background": "#1a1c1b",
+                    "on-tertiary-container": "#7f848a",
+                    "on-secondary-fixed": "#261900",
+                    "tertiary": "#000000",
+                    "secondary-fixed-dim": "#e9c176",
+                    "inverse-primary": "#bcc7dd",
+                    "tertiary-fixed-dim": "#c2c7cd",
+                    "surface-container-high": "#e9e8e6",
+                    "primary-fixed": "#d8e3f9",
+                    "surface-container-low": "#f4f3f1",
+                    "inverse-on-surface": "#f1f1ef",
+                    "primary-container": "#111c2c",
+                    "on-surface-variant": "#44474c",
+                    "secondary-fixed": "#ffdea5",
+                    "tertiary-container": "#171c20",
+                    "background": "#faf9f7",
+                    "surface-variant": "#e3e2e0",
+                    "secondary-container": "#fed488",
+                    "on-primary-fixed": "#111c2c",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed": "#dfe3e9",
+                    "primary-fixed-dim": "#bcc7dd",
+                    "on-primary-container": "#798498",
+                    "inverse-surface": "#2f3130",
+                    "surface-container-highest": "#e3e2e0",
+                    "on-primary-fixed-variant": "#3d4759",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed-variant": "#42474c",
+                    "surface-tint": "#545f72",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#faf9f7",
+                    "secondary": "#775a19",
+                    "outline-variant": "#c5c6cd",
+                    "on-secondary-fixed-variant": "#5d4201",
+                    "on-error-container": "#93000a",
+                    "surface-dim": "#dadad8",
+                    "surface-container": "#efeeec",
+                    "on-tertiary-fixed": "#171c20",
+                    "surface": "#faf9f7",
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "outline": "#75777d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "section-gap": "120px",
+                    "margin-mobile": "20px",
+                    "margin-desktop": "64px",
+                    "container-max": "1280px",
+                    "base": "8px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "label-md": ["Manrope"],
+                    "display-lg": ["Playfair Display"],
+                    "headline-md": ["Playfair Display"],
+                    "body-lg": ["Manrope"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"],
+                    "body-md": ["Manrope"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["28px", {"lineHeight": "36px", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "headline-lg": ["40px", {"lineHeight": "48px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Navigation Drawer Logic */
+        #nav-drawer {
+            transform: translateX(-100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #nav-drawer.open {
+            transform: translateX(0);
+        }
+        #nav-overlay {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease-in-out;
+        }
+        #nav-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+<style>
+        body {
+          min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- Navigation Drawer Overlay -->
+<div class="fixed inset-0 bg-black/40 z-[60]" id="nav-overlay" onclick="toggleNav()"></div>
+<!-- Navigation Drawer -->
+<aside class="fixed top-0 left-0 h-full w-[320px] bg-surface z-[70] shadow-2xl overflow-y-auto hide-scrollbar flex flex-col" id="nav-drawer">
+<div class="sticky top-0 bg-surface flex items-center justify-between p-6 border-b border-outline-variant/30 z-10">
+<a class="font-headline-md text-headline-md tracking-[0.2em] text-primary uppercase" href="index.html">AJILE</a>
+<button class="material-symbols-outlined p-2 hover:bg-surface-container-low rounded-full transition-colors" onclick="toggleNav()">close</button>
+</div>
+<div class="p-6 flex flex-col gap-8">
+<nav class="flex flex-col">
+<a class="py-3 font-headline-md text-headline-md text-primary hover:text-secondary transition-colors" href="index.html">Home</a>
+<a class="py-3 font-headline-md text-headline-md text-primary hover:text-secondary transition-colors" href="#">About Us</a>
+<a class="py-3 font-headline-md text-headline-md text-primary hover:text-secondary transition-colors" href="collections.html">Collections</a>
+<a class="py-3 font-headline-md text-headline-md text-primary hover:text-secondary transition-colors" href="#">Showroom</a>
+</nav>
+<div class="pt-8 border-t border-outline-variant">
+<h4 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mb-4">Product Categories</h4>
+<div class="flex flex-col">
+<a class="py-2 font-body-lg text-body-lg text-secondary flex items-center gap-2" href="#">
+<span class="w-1.5 h-1.5 bg-secondary rounded-full"></span>
+                        Lighting
+                    </a>
+<a class="py-2 font-body-lg text-body-lg text-on-surface hover:text-secondary transition-colors" href="#">Door Hardware</a>
+<a class="py-2 font-body-lg text-body-lg text-on-surface hover:text-secondary transition-colors" href="#">Wardrobe Fittings</a>
+<a class="py-2 font-body-lg text-body-lg text-on-surface hover:text-secondary transition-colors" href="#">Sanitary &amp; Bathrooms</a>
+<a class="py-2 font-body-lg text-body-lg text-on-surface hover:text-secondary transition-colors" href="#">Kitchen</a>
+<a class="py-2 font-body-lg text-body-lg text-on-surface hover:text-secondary transition-colors" href="#">Flooring</a>
+</div>
+</div>
+<div class="pt-8 border-t border-outline-variant pb-12">
+<a class="py-3 font-headline-md text-headline-md text-primary hover:text-secondary transition-colors" href="contact.html">Contact Us</a>
+</div>
+</div>
+</aside>
+<script>
+        function toggleNav() {
+            document.getElementById('nav-drawer').classList.toggle('open');
+            document.getElementById('nav-overlay').classList.toggle('open');
+        }
+    </script>
+<!-- TopAppBar -->
+<header class="bg-surface/90 backdrop-blur-md fixed top-0 w-full z-50 border-b border-outline-variant">
+<div class="flex items-center justify-between px-margin-mobile md:px-margin-desktop h-16 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-primary hover:bg-surface-container-low transition-colors duration-300 p-2 rounded-full active:scale-95" onclick="toggleNav()">menu</button>
+<a class="font-headline-md text-headline-md tracking-[0.2em] text-primary uppercase" href="index.html">AJILE</a>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Exotic Stone</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Premium Wood</a>
+<a class="font-label-md text-label-md text-secondary border-b border-secondary pb-1" href="#">Lighting</a>
+</div>
+<button class="material-symbols-outlined text-primary hover:bg-surface-container-low transition-colors duration-300 p-2 rounded-full active:scale-95">search</button>
+</div>
+</header>
+<main class="pt-24 pb-section-gap">
+<!-- Breadcrumb / Back Link -->
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-8">
+<a class="inline-flex items-center gap-2 font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors group" href="collections.html">
+<span class="material-symbols-outlined text-[18px] group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                Back to Collections
+            </a>
+</div>
+<!-- Hero Section -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-section-gap">
+<div class="flex flex-col md:flex-row gap-gutter items-end">
+<div class="md:w-1/2">
+<h1 class="font-display-lg text-display-lg md:text-display-lg text-primary mb-6">Sculpted Light</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg">
+                        Our lighting collection bridges the gap between functional illumination and architectural art. Each piece is meticulously hand-finished using premium metals and artisan glass.
+                    </p>
+</div>
+<div class="md:w-1/2 flex justify-end gap-4 overflow-x-auto hide-scrollbar pb-4">
+<span class="px-6 py-2 border border-outline font-label-md text-label-md text-primary whitespace-nowrap cursor-pointer">Chandeliers</span>
+<span class="px-6 py-2 border border-outline-variant font-label-md text-label-md text-on-surface-variant whitespace-nowrap cursor-pointer">Pendant Lights</span>
+<span class="px-6 py-2 border border-outline-variant font-label-md text-label-md text-on-surface-variant whitespace-nowrap cursor-pointer">Architectural LED</span>
+</div>
+</div>
+</section>
+<!-- Featured Products Bento Grid -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Modern Gold Chandelier (Large Feature) -->
+<div class="md:col-span-8 group cursor-pointer">
+<div class="relative aspect-[16/9] overflow-hidden bg-surface-container mb-6 border border-outline-variant/30">
+<img alt="A grand Modern Gold Chandelier" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpthWEYnBdiaIiCbQH7mymSulNv1myufAf-nfl6ZI7wSYPmRm__rv3ywDbd0pKtoft5gPZ82bESZo6c8UyC4D1pjvrPcRzd6_xGtFLLeMxhKMFl69EGZ6d2Zqn1foGiL6y7WH5pESrW7NFThMMdqcjXX2BQydytoCe8ShtDH-okwHKZmtZFqOj8T5hVbHJXsefYS2E5iloJVyzcB1hkr8pw92pONEDVx6IGgcRZbLrwqvtwTOacbsKb-0poyw1M23DtGJIFjdMc-Un"/>
+<div class="absolute top-4 right-4">
+<span class="bg-primary text-on-primary font-label-md text-label-md px-4 py-1">FEATURED</span>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-headline-md text-primary">Modern Gold Chandelier</h3>
+<p class="font-label-md text-label-md text-secondary mt-1">24K Hand-Brushed Finish</p>
+</div>
+<span class="font-headline-md text-headline-md text-primary">$4,200</span>
+</div>
+</div>
+<!-- Smoky Glass Pendant -->
+<div class="md:col-span-4 flex flex-col justify-between group cursor-pointer">
+<div class="relative aspect-square overflow-hidden bg-surface-container mb-6 border border-outline-variant/30">
+<img alt="A singular Smoky Glass Pendant" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmaOC1T_iNCnFHpVc7JQEoNQtPipJqi1j0mQgAwUVcUli1HXd-aSdwv0njeTXEwMjljgjSme9QcKONkfgGVkjzjXHimiPhFDFD2v-wQ-GohrZzgXYB9S_Dzobn4xtEgdI7ODqBT9HSxYZ1E9DcB0Rv6TQM_HoGX9LMAQMjrVeSEvLsJ8kR2QM0XFW_HDTLMoSPUH2nnkRWL9Jebq2c_I9IBLo4uqwibrPoAWYxe5pjZhK8b9YmqevemAyq03A2KP1N7BYLm2D0-zcA"/>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-primary">Smoky Glass Pendant</h3>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1">Hand-Blown Murano Glass</p>
+<div class="mt-6 flex items-center justify-between">
+<span class="font-headline-md text-headline-md text-primary">$850</span>
+<button class="font-label-md text-label-md text-secondary border border-secondary px-6 py-2 hover:bg-secondary/5 transition-colors">VIEW DETAILS</button>
+</div>
+</div>
+</div>
+<!-- Recessed Linear LED (Wide Banner style) -->
+<div class="md:col-span-12 mt-12 grid grid-cols-1 md:grid-cols-2 gap-gutter items-center bg-surface-container p-8 md:p-12">
+<div class="relative aspect-video overflow-hidden border border-outline-variant/30">
+<img alt="An ultra-modern interior hallway featuring Recessed Linear LED" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDF7BIhY9KFB_IDtlyCLZHTSyDJ81lO5vWN8t6YpgH5JJRJiYmwSBg4JkfN8XZ6Wl9OFrctWY7DfyGgapMTDZUBXd_P_xOFPF2YBcupk5jRvvZwpp2UYeQ8naS9FLhtv6yCSYkAVHtgLozuZ0rKHY2R8Gm8y8pcyefJFS54VGkLedl15kzSaSvNArqAFRfCbA2ax45ee3bPebqRrdFyQxj6WOD6bZN34mrVcm5qXDRwPaoQ1BlECFIa_RnyanHiNpMd1MKiYixup3vv"/>
+</div>
+<div class="md:pl-12">
+<span class="font-label-md text-label-md text-secondary tracking-widest uppercase mb-4 block">Architectural Systems</span>
+<h3 class="font-display-lg text-[40px] leading-tight text-primary mb-6">Recessed Linear LED</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8">
+                            Engineered for seamless integration, our linear systems provide continuous, flicker-free illumination that disappears into the architecture.
+                        </p>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-10 py-4 hover:opacity-90 transition-opacity">REQUEST SPECIFICATION</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Categories Section -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mt-section-gap">
+<div class="border-t border-outline-variant pt-16">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-12">Browse by Category</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="flex flex-col gap-4 group cursor-pointer">
+<div class="aspect-[4/5] overflow-hidden bg-surface-container-highest border border-outline-variant/20">
+<img alt="Luxury chandeliers" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBP11XmhUAdCXWvRTS568nPQZYYL3tQRDXPuzfj-3M7nNMq1GQfwmVkCODAj3dckj9MAE_cn7AidWhreQSKZhH8R-u-E1Z6a0-qzUUxDFnFHIoJx7FDeu5sWLq0fbLySFiRR8q3jZpH0WHsDXWu-CZWf-LFXuQpgCh3Ic7srA15upwVvOW6nijHRYmFfsGeZRdQFadZIaRxJ9pvQaeeKMZMflSRKkhaUMa76aayU9YLuqjzNEuqKwuiaNUuvb3UD1uonRALwZl6RoW_"/>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-headline-md text-headline-md">Chandeliers</span>
+<span class="material-symbols-outlined text-secondary group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</div>
+</div>
+<div class="flex flex-col gap-4 group cursor-pointer">
+<div class="aspect-[4/5] overflow-hidden bg-surface-container-highest border border-outline-variant/20">
+<img alt="Minimalist pendant lights" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCI8lDkZYMldmp4q-uK6maNhOYtZ1OddAYuxzGu6QDzUmG7kiVQMsZaTjZ9mBB8kbPqvzTTgrSWBMpsNztKn8XcH7_Zysrj0kE9YshIYlnk_mwDPsD8dW-KgM3iJNc_Y1agQDcH73KW7304oHg8TCbQy_cOoiXhGCl8ELqIrrNUD7_nSGfIWBgVOWzumFNosMbGOTPr_gwhEPD7ONSyTAwky4K6JdbquQ4lcsxtYzRzMtLUgoFsvCGWkJcZ66Jj8o32DPMdpD96bxC_"/>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-headline-md text-headline-md">Pendant Lights</span>
+<span class="material-symbols-outlined text-secondary group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</div>
+</div>
+<div class="flex flex-col gap-4 group cursor-pointer">
+<div class="aspect-[4/5] overflow-hidden bg-surface-container-highest border border-outline-variant/20">
+<img alt="Architectural LED installation" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaiD5sFq8udzi-GK0h_m4_dMEDXRdTtGIaTqtpU58Nnj4eO8aefbkaprlN8xOgQm7J1OITcZfTEmEFZI_hlepNvpewOOPSu98wVdHVFgISF8GIvN_THNEl7YyJl-96Dp1tVMqLeeFrNCzDTfWeIWiWjpDZEJNN-XTtqnfdf523KJNS4lpt-hZy14BS8BUb-O-r8KVnOM00K4L9zEzr-d7rlC8phz8vOgBMCrDXOntvyIwgsaOORJbn_IythhCpZ_FB1IakLUIP_bJ0"/>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-headline-md text-headline-md">Architectural LED</span>
+<span class="material-symbols-outlined text-secondary group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container w-full py-section-gap px-margin-mobile border-t border-outline-variant mt-section-gap">
+<div class="flex flex-col items-start gap-gutter max-w-container-max mx-auto text-left">
+<div class="font-headline-md text-headline-md text-primary mb-4 uppercase tracking-widest">AJILE</div>
+<div class="grid grid-cols-1 md:grid-cols-4 w-full gap-12">
+<div class="md:col-span-2">
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">
+                        Curating the world's most exceptional finishes for the visionary architect and the uncompromising homeowner.
+                    </p>
+</div>
+<div class="flex flex-col gap-4">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">WhatsApp</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Instagram</a>
+</div>
+<div class="flex flex-col gap-4">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Showroom Policy</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors" href="#">Sustainability</a>
+</div>
+</div>
+<div class="mt-16 w-full flex justify-between items-center border-t border-outline-variant pt-8">
+<p class="font-body-md text-body-md text-on-surface-variant">© 2024 AJILE PREMIUM FINISHES. ALL RIGHTS RESERVED.</p>
+<div class="flex gap-6">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">language</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">share</span>
+</div>
+</div>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface border-t border-outline-variant h-16 flex justify-around items-center px-4 pb-safe">
+<a class="text-on-surface-variant flex flex-col items-center gap-1 hover:text-primary transition-colors" href="index.html">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-[10px]">Home</span>
+</a>
+<a class="text-secondary flex flex-col items-center gap-1 after:content-[''] after:w-1 after:h-1 after:bg-secondary after:rounded-full" href="collections.html">
+<span class="material-symbols-outlined">auto_awesome_motion</span>
+<span class="font-label-md text-[10px]">Collections</span>
+</a>
+<a class="text-on-surface-variant flex flex-col items-center gap-1 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">auto_stories</span>
+<span class="font-label-md text-[10px]">Journal</span>
+</a>
+<a class="text-on-surface-variant flex flex-col items-center gap-1 hover:text-primary transition-colors" href="contact.html">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="font-label-md text-[10px]">Contact</span>
+</a>
+</nav>
+</body></html>

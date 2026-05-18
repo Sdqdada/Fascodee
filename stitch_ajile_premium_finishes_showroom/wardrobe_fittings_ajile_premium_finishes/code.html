@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#000000",
+                    "on-surface": "#1a1c1b",
+                    "on-secondary-container": "#785a1a",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-background": "#1a1c1b",
+                    "on-tertiary-container": "#7f848a",
+                    "on-secondary-fixed": "#261900",
+                    "tertiary": "#000000",
+                    "secondary-fixed-dim": "#e9c176",
+                    "inverse-primary": "#bcc7dd",
+                    "tertiary-fixed-dim": "#c2c7cd",
+                    "surface-container-high": "#e9e8e6",
+                    "primary-fixed": "#d8e3f9",
+                    "surface-container-low": "#f4f3f1",
+                    "inverse-on-surface": "#f1f1ef",
+                    "primary-container": "#111c2c",
+                    "on-surface-variant": "#44474c",
+                    "secondary-fixed": "#ffdea5",
+                    "tertiary-container": "#171c20",
+                    "background": "#faf9f7",
+                    "surface-variant": "#e3e2e0",
+                    "secondary-container": "#fed488",
+                    "on-primary-fixed": "#111c2c",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed": "#dfe3e9",
+                    "primary-fixed-dim": "#bcc7dd",
+                    "on-primary-container": "#798498",
+                    "inverse-surface": "#2f3130",
+                    "surface-container-highest": "#e3e2e0",
+                    "on-primary-fixed-variant": "#3d4759",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed-variant": "#42474c",
+                    "surface-tint": "#545f72",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#faf9f7",
+                    "secondary": "#775a19",
+                    "outline-variant": "#c5c6cd",
+                    "on-secondary-fixed-variant": "#5d4201",
+                    "on-error-container": "#93000a",
+                    "surface-dim": "#dadad8",
+                    "surface-container": "#efeeec",
+                    "on-tertiary-fixed": "#171c20",
+                    "surface": "#faf9f7",
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "outline": "#75777d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "section-gap": "120px",
+                    "margin-mobile": "20px",
+                    "margin-desktop": "64px",
+                    "container-max": "1280px",
+                    "base": "8px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "label-md": ["Manrope"],
+                    "display-lg": ["Playfair Display"],
+                    "headline-md": ["Playfair Display"],
+                    "body-lg": ["Manrope"],
+                    "headline-lg-mobile": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"],
+                    "body-md": ["Manrope"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["28px", {"lineHeight": "36px", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "headline-lg": ["40px", {"lineHeight": "48px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #faf9f7;
+            color: #1a1c1b;
+        }
+        #nav-drawer {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #nav-drawer.closed {
+            transform: translateX(-100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- Navigation Drawer Overlay -->
+<div class="fixed inset-0 bg-primary/20 backdrop-blur-sm z-[60] hidden" id="drawer-overlay" onclick="toggleDrawer()"></div>
+<!-- Navigation Drawer -->
+<aside class="fixed top-0 left-0 h-full w-[85%] max-w-[320px] bg-surface z-[70] closed shadow-2xl overflow-y-auto" id="nav-drawer">
+<div class="p-margin-mobile flex flex-col h-full min-h-screen">
+<div class="flex items-center justify-between mb-8">
+<span class="font-headline-md text-headline-md tracking-[0.2em] text-primary uppercase">AJILE</span>
+<span class="material-symbols-outlined cursor-pointer" data-icon="close" onclick="toggleDrawer()">close</span>
+</div>
+<nav class="flex flex-col gap-5 overflow-y-auto">
+<a class="font-headline-md text-headline-md hover:text-secondary transition-colors" href="SCREEN_15">Home</a>
+<a class="font-headline-md text-headline-md hover:text-secondary transition-colors" href="#">About Us</a>
+<a class="font-headline-md text-headline-md hover:text-secondary transition-colors" href="SCREEN_9">Collections</a>
+<a class="font-headline-md text-headline-md hover:text-secondary transition-colors" href="#">Showroom</a>
+<div class="mt-4 pt-4 border-t border-outline-variant">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase mb-4 tracking-widest">Product Categories</p>
+<div class="flex flex-col gap-4">
+<a class="font-body-lg text-body-lg hover:text-secondary transition-colors" href="#">Lighting</a>
+<a class="font-body-lg text-body-lg hover:text-secondary transition-colors" href="#">Door Hardware</a>
+<a class="font-body-lg text-body-lg text-secondary transition-colors" href="#">Wardrobe Fittings</a>
+<a class="font-body-lg text-body-lg hover:text-secondary transition-colors" href="#">Sanitary &amp; Bathrooms</a>
+<a class="font-body-lg text-body-lg hover:text-secondary transition-colors" href="#">Kitchen</a>
+<a class="font-body-lg text-body-lg hover:text-secondary transition-colors" href="#">Flooring</a>
+</div>
+</div>
+<a class="font-headline-md text-headline-md hover:text-secondary transition-colors mt-4 pt-4 border-t border-outline-variant" href="SCREEN_14">Contact Us</a>
+</nav>
+<div class="mt-auto pt-12 pb-8">
+<p class="font-label-md text-[12px] text-on-surface-variant uppercase tracking-widest">Global Experience</p>
+</div>
+</div>
+</aside>
+<!-- Top Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-md border-b border-outline-variant flex items-center justify-between px-margin-mobile md:px-margin-desktop h-16">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform" data-icon="menu" onclick="toggleDrawer()">menu</span>
+<a class="font-headline-md text-headline-md tracking-[0.2em] text-primary uppercase" href="SCREEN_15">AJILE</a>
+</div>
+<div class="hidden md:flex gap-8">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="SCREEN_9">Collections</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Journal</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">The Showroom</a>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform" data-icon="search">search</span>
+</div>
+</nav>
+<main class="pt-24 pb-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<!-- Breadcrumb / Back Link -->
+<a class="mb-12 flex items-center gap-2 group cursor-pointer w-fit" href="SCREEN_9">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-[18px]" data-icon="arrow_back">arrow_back</span>
+<span class="font-label-md text-label-md text-on-surface-variant group-hover:text-primary transition-colors uppercase tracking-wider">Back to Collections</span>
+</a>
+<!-- Header -->
+<header class="mb-section-gap">
+<h1 class="font-display-lg text-display-lg mb-6 max-w-2xl">Wardrobe Fittings</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+            A curated selection of precision-engineered hardware designed for the most demanding bespoke interiors. Our systems offer silent performance and architectural elegance.
+        </p>
+</header>
+<!-- Bento Grid Categories -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-section-gap">
+<div class="md:col-span-8 group relative overflow-hidden h-[500px] border border-outline-variant">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A luxurious, minimalist walk-in closet with high-end sliding glass doors and soft interior lighting. The scene highlights the precision of the Sliding Systems hardware in a neutral-toned, architectural environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhbbbdjVUvRhZb6pmyLIjjGkOi5PrqNTaZXpJHSEJO3Ty3UzpwyRQcJBZPLx98ePWfECrDq8n4ZU5rdJDfXumugXjDsnNduAieVd6pSCW8q-NEr0lAXNDE4_D2jV1NIAFhd1KA-OrOlVdQS-KKEkIDIHG50V3e67E_GSAgxEJ7VC6EWoHaCnLGYzM3jFdtqPp2y8mCRSSni4VITdsLHlvs2oUaxvGHkDGA-AtdVzRofOLFRvIXAT5yzOcrAQuch-jMB-Brg1c-NF1X"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent"></div>
+<div class="absolute bottom-8 left-8 text-on-primary">
+<h2 class="font-headline-lg text-headline-lg mb-2">Sliding Systems</h2>
+<p class="font-body-md text-body-md opacity-90 mb-4">Precision tracks for effortless movement.</p>
+<button class="bg-on-secondary-fixed text-on-secondary px-6 py-3 font-label-md text-label-md uppercase tracking-widest hover:bg-secondary-fixed transition-colors">Explore Category</button>
+</div>
+</div>
+<div class="md:col-span-4 flex flex-col gap-gutter">
+<div class="flex-1 group relative overflow-hidden border border-outline-variant">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A close-up view of a high-quality metal drawer runner system. The hardware is finished in a sophisticated matte champagne gold." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHb0W1cg2y5pbZ0up0_xar58LFIYwgu7ldDD-f4FFy8Z4OE3u6d6bAj05FqdbEA5HF5KaqqzP_maTJ0RVQnJBF6btipoZqmsIwFoKXawNTZ-Nr7uQ6BMNJ2bDVBUsb532ysd4uMvPOg_SPdq1-7KQXpbIITYheQ_qd3hXz1U7vXB36xlJl3SrM5tEOsDUxTOKri8updtgSaQyzykZadGniOqrilqvE6MWMVhuAyBELViVgUAJmowDHPL4wcoDXMARSnNzA8I1uACMw"/>
+<div class="absolute inset-0 bg-primary/20 group-hover:bg-primary/40 transition-colors"></div>
+<div class="absolute bottom-6 left-6 text-on-primary">
+<h3 class="font-headline-md text-headline-md">Drawer Runners</h3>
+<p class="font-label-md text-label-md uppercase opacity-80">Industrial Strength</p>
+</div>
+</div>
+<div class="flex-1 group relative overflow-hidden border border-outline-variant">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A meticulously organized wardrobe showing high-end interior organizers and a rotating shoe rack." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpfD3PuRxkdMTQberyc_onvhOFT0keU8Qcz-23mDpKmcrILwxIIjoJSgCnGQdr-G0jsB5IQrn9EmMH_S5DGJDliE22-Chw85TNpVVoCrBs2l5dClnJuejPhbkiMuIoBd8ZnYDUha3LtUv7vkLDo9Lndqr_6SAEs1qpEk8z6MpySpKXviI1eRe7y3y-f04Qkrm4zl5tLPJlV9Duux1t-5b5JZDo2X_OTHTvjA_g5sM61o8qprfhY5rOTRS59Z-hE1l2tVpmJ5eGKzye"/>
+<div class="absolute inset-0 bg-primary/20 group-hover:bg-primary/40 transition-colors"></div>
+<div class="absolute bottom-6 left-6 text-on-primary">
+<h3 class="font-headline-md text-headline-md">Organizers</h3>
+<p class="font-label-md text-label-md uppercase opacity-80">Bespoke Layouts</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Products -->
+<section>
+<div class="flex items-end justify-between mb-12 border-b border-outline-variant pb-6">
+<h2 class="font-headline-lg text-headline-lg">Featured Selection</h2>
+<span class="font-label-md text-label-md text-secondary uppercase tracking-widest cursor-pointer hover:underline">View All Products</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Product Card 1 -->
+<div class="group">
+<div class="aspect-[4/5] relative overflow-hidden mb-6 border border-outline-variant bg-surface-container">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Minimalist studio photography of a Soft-close Sliding Track hardware piece." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5patk1gH6cQJPFFV7Q0h-ONWsqUFYDLcDjjGGtdzd0tDD-3bTn8xsOMQDg7zPikP0LcnvAYLnrN1EGvkKfzM9bxD75V049uCEpYj1WZWmfGvQfKKXz-UZlBp2OnFYydIp-G9uAfMfWqzoTdR6rSVpYYMaONeQFjc9x4oCC96U9uzeZegtEpcBe6kTH62ey9qUiY91QsLPylVwUQfgGxplnRjoRjERR5oOg-iRJgAZWBu6ABJMdK8nO709miaiMW2BS9fLBUjtYqvT"/>
+<div class="absolute top-4 right-4 bg-surface px-3 py-1 border border-outline-variant">
+<span class="font-label-md text-label-md text-primary uppercase">New</span>
+</div>
+</div>
+<div class="space-y-2">
+<p class="font-label-md text-label-md text-secondary uppercase tracking-widest">Sliding Systems</p>
+<h3 class="font-headline-md text-headline-md">Soft-close Sliding Track</h3>
+<div class="flex gap-2 py-2">
+<span class="bg-surface-container px-3 py-1 text-primary font-label-md text-[10px] uppercase tracking-tighter">Precision Steel</span>
+<span class="bg-surface-container px-3 py-1 text-primary font-label-md text-[10px] uppercase tracking-tighter">100kg Capacity</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Quiet operation with hydraulic damping technology.</p>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group">
+<div class="aspect-[4/5] relative overflow-hidden mb-6 border border-outline-variant bg-surface-container">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A detailed shot of a Slim Metal Drawer Box installed in a custom cabinet." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAw_RPbytzLAP3U4k6Fu8oBXatVYMbYCKJWnRl8NY3AmSyfDZozPuqWBB3y4i-MZb7Ri_9dsxq2urr7W_ItwDTU3P9DL1LQ9F2FTPSsQzC1zY622jez84xiKwXiLod248Z_0xH0UJgV6FZGPoaNqdudyW5TH_PW6C8ggxZoOhIEOOFXt-UaESMqVyYCc52ktYp7IzAiHfY89caiDeHvi28s_GjZSkAViPr2Ql4dMwZoY96XUpoy5W10oW3CMSHRvxP2UnHEQkj7xLeg"/>
+</div>
+<div class="space-y-2">
+<p class="font-label-md text-label-md text-secondary uppercase tracking-widest">Drawer Runners</p>
+<h3 class="font-headline-md text-headline-md">Slim Metal Drawer Box</h3>
+<div class="flex gap-2 py-2">
+<span class="bg-surface-container px-3 py-1 text-primary font-label-md text-[10px] uppercase tracking-tighter">Architectural</span>
+<span class="bg-surface-container px-3 py-1 text-primary font-label-md text-[10px] uppercase tracking-tighter">Full Extension</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Minimalist profile with synchronized runner motion.</p>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group">
+<div class="aspect-[4/5] relative overflow-hidden mb-6 border border-outline-variant bg-surface-container">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A rotating shoe rack storage solution in a high-end luxury closet." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD77JposnZRcHH7qvp79S_iIDkzxtszlTTvWrtSozt9UrsVO5dU7GJPjCynfhDx8jC4Eu9lxYG9vPf1EDPXDGDOfnhBQKEgM2e5XXGpdqMlEpILFMZqd_mz42p5s7xYU7suD8kppjH4GREdiiNME-eQnOjHR97voJrEV10BaD0eQZJzud3y-7O7Whozeh3z35KsxtDDkC7HC0RxNnKMYh1T-1ldvA3Ce5oCZFYiq872Qmujoy4DrSzLqiuRJ9gaNh0NQggFxj5GifIZ"/>
+<div class="absolute top-4 right-4 bg-primary text-on-primary px-3 py-1">
+<span class="font-label-md text-label-md uppercase">Premium</span>
+</div>
+</div>
+<div class="space-y-2">
+<p class="font-label-md text-label-md text-secondary uppercase tracking-widest">Organizers</p>
+<h3 class="font-headline-md text-headline-md">Rotating Shoe Rack</h3>
+<div class="flex gap-2 py-2">
+<span class="bg-surface-container px-3 py-1 text-primary font-label-md text-[10px] uppercase tracking-tighter">360° Access</span>
+<span class="bg-surface-container px-3 py-1 text-primary font-label-md text-[10px] uppercase tracking-tighter">Hand-Polished</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Space-maximizing swivel system for luxury footwear.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter / Contact CTA -->
+<section class="mt-section-gap bg-primary text-on-primary p-12 md:p-24 flex flex-col items-center text-center">
+<h2 class="font-display-lg text-display-lg mb-8">Design Your Sanctuary</h2>
+<p class="font-body-lg text-body-lg mb-12 max-w-xl opacity-80">Request a technical catalog or consult with our hardware specialists for your next architectural project.</p>
+<div class="flex flex-col md:flex-row gap-gutter w-full max-w-lg">
+<input class="flex-1 bg-transparent border-b border-on-primary/30 text-on-primary placeholder:text-on-primary/50 py-3 focus:outline-none focus:border-on-primary font-label-md" placeholder="YOUR EMAIL ADDRESS" type="email"/>
+<button class="border border-secondary text-secondary px-8 py-3 font-label-md text-label-md uppercase tracking-widest hover:bg-secondary/10 transition-all">Submit Request</button>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-section-gap px-margin-mobile md:px-margin-desktop border-t border-outline-variant bg-surface-container pb-24 md:pb-section-gap">
+<div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between gap-12">
+<div class="max-w-sm">
+<div class="font-headline-md text-headline-md text-primary mb-6 uppercase tracking-wider">AJILE PREMIUM FINISHES</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8">Elevating the standard of interior hardware through meticulous engineering and timeless design since 1994.</p>
+<div class="flex gap-6">
+<span class="font-label-md text-label-md text-secondary cursor-pointer hover:opacity-80 transition-opacity">WhatsApp</span>
+<span class="font-label-md text-label-md text-secondary cursor-pointer hover:opacity-80 transition-opacity">Instagram</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-x-12 gap-y-4">
+<h4 class="col-span-2 font-label-md text-label-md text-primary uppercase mb-2">Navigation</h4>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary" href="SCREEN_15">Home</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary" href="SCREEN_9">Collections</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary" href="#">Journal</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary" href="SCREEN_14">Contact</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary" href="#">Showroom Policy</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary" href="#">Sustainability</a>
+</div>
+</div>
+<div class="max-w-container-max mx-auto mt-24 pt-8 border-t border-outline-variant flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="font-body-md text-body-md text-on-surface-variant text-[12px]">© 2024 AJILE PREMIUM FINISHES. ALL RIGHTS RESERVED.</p>
+<div class="flex gap-8">
+<span class="font-body-md text-body-md text-on-surface-variant text-[12px] cursor-pointer">Privacy</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-[12px] cursor-pointer">Terms</span>
+</div>
+</div>
+</footer>
+<!-- Mobile Navigation Bar -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface border-t border-outline-variant flex justify-around items-center h-16 px-4 pb-safe">
+<a class="text-on-surface-variant flex flex-col items-center gap-1 transition-transform active:scale-90" href="SCREEN_15">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-md text-[10px] uppercase">Home</span>
+</a>
+<a class="text-secondary flex flex-col items-center gap-1 transition-transform active:scale-90 relative" href="SCREEN_9">
+<span class="material-symbols-outlined" data-icon="auto_awesome_motion">auto_awesome_motion</span>
+<span class="font-label-md text-[10px] uppercase">Collections</span>
+<span class="absolute -bottom-1 w-1 h-1 bg-secondary rounded-full"></span>
+</a>
+<a class="text-on-surface-variant flex flex-col items-center gap-1 transition-transform active:scale-90" href="SCREEN_14">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-label-md text-[10px] uppercase">Contact</span>
+</a>
+</nav>
+<script>
+    function toggleDrawer() {
+        const drawer = document.getElementById('nav-drawer');
+        const overlay = document.getElementById('drawer-overlay');
+        const isClosed = drawer.classList.contains('closed');
+        
+        if (isClosed) {
+            drawer.classList.remove('closed');
+            overlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        } else {
+            drawer.classList.add('closed');
+            overlay.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+    }
+</script>
+</body></html>
